@@ -1,0 +1,26 @@
+# Define the paths and filenames of the application installers
+$installerPathApp1 = "C:\path\to\app1_installer.exe"
+$installerPathApp2 = "C:\path\to\app2_installer.msi"
+$installerPathApp3 = "C:\path\to\app3_installer.exe"
+
+# Define function to install an application
+function Install-Application {
+    param(
+        [string]$installerPath
+    )
+
+    if (Test-Path $installerPath) {
+        Write-Host "Installing $($installerPath | Split-Path -Leaf)"
+        Start-Process -FilePath $installerPath -Wait
+        Write-Host "Installed $($installerPath | Split-Path -Leaf)"
+    } else {
+        Write-Host "Installer not found: $installerPath"
+    }
+}
+
+# Install each application
+Install-Application -installerPath $installerPathApp1
+Install-Application -installerPath $installerPathApp2
+Install-Application -installerPath $installerPathApp3
+
+Write-Host "All applications installed successfully."
